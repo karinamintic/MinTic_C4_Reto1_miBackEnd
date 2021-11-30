@@ -4,38 +4,53 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.mintic.reto1.model.User;
-import com.example.mintic.reto1.repository.crud.UserCrudRepository;
+import com.example.mintic.reto1.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@Repository
+@Service
 public class UserService {
-    @Autowired
-    private UserCrudRepository userCrudRepository;
+   @Autowired
+   private UserRepository userRepository;
 
-    public List<User> getAll()
-    {
-        return (List<User>) userCrudRepository.findAll();
-    }
+   public List<User> getAll()
+   {
+       return userRepository.getAll();
+   }
 
-    public Optional<User> getUser(int id)
-    {
-        return userCrudRepository.findById(id);
-    }
+   public Optional<User> getUser(int id)
+   {
+    return userRepository.getUser(id);
+   }
 
-    public User save(User user)
-    {
-        return userCrudRepository.save(user);
-    }
+   public void save(User user)
+   {
+        if(user.getId()==null)
+        {
+            userRepository.save(user);
+        }
+        else if (userRepository.getUser(user.getId()).isEmpty())
+        {
+            userRepository.save(user);
+        }
+   }
 
-    public Optional<User> emailExists(String email)
-    {
-        return userCrudRepository.findByEmail(email);
-    }
-
-    public Optional<User> usesExists(String email, String password)
-    {
-        return userCrudRepository.findByEmailAndPassword(email, password);
-    }
+   public boolean emailExists(String email)
+   {
+       if(userRepository.emailExists(email).isEmpty())
+       {
+           return false;
+       }
+       return true;
+   }
+   public Optional<User> userExists(String email, String password)
+   {
+       Optional<User> user = userRepository.userExistis(email, password);
+       if(user.isEmpty())
+       {
+            return Optional.of(new User(null,email,password,"NO DEFINIDO"));
+       }
+       return user;
+   }
 }

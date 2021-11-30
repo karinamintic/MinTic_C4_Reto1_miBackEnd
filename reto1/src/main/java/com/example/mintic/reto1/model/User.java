@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.NoArgsConstructor; 
 
 @Data /// Hace los getters y setters LOMBOK
 @NoArgsConstructor //// Coloca un constructor sin argumentos LOMBOK
@@ -22,4 +22,49 @@ public class User {
     private String email;
     private String password;
     private String name;
+
+    /* /////lombok
+    ///Constructor con todos los argumentos
+    public User(Integer id, String email, String password, String name) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+    ///Constructor vacio
+    public User() {
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    } */
+    ///fin sin lombok
 }
